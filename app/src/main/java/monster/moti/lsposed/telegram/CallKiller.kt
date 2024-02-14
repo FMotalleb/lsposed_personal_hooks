@@ -5,8 +5,11 @@ import de.robv.android.xposed.XposedHelpers.findAndHookMethod
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers.getObjectField
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
+
 public fun telegramCallKiller(lpparam: LoadPackageParam){
-    if (!lpparam.packageName.equals("org.telegram.messenger.web")) return
+    if (!lpparam.packageName.equals("org.telegram.messenger.web")) {
+        return
+    }
 
     findAndHookMethod(
         "org.telegram.ui.ActionBar.ActionBarMenu.LazyItem",
@@ -26,7 +29,6 @@ public fun telegramCallKiller(lpparam: LoadPackageParam){
                 } catch (e:Throwable){
                     Log.e("TelegramHooks",e.toString())
                 }
-
             }
         }
     )
