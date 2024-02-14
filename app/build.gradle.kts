@@ -39,6 +39,6 @@ dependencies {
 
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("de.robv.android.xposed:api:82")
-    implementation(fileTree("lib"))
+    compileOnly("de.robv.android.xposed:api:82")
+    compileOnly(fileTree("lib"))
 }
