@@ -4,7 +4,7 @@
 
     <application
         android:allowBackup="true"
-        android:label="LSposed Demo"
+        android:label="XPosed Moti"
         android:supportsRtl="true"
         tools:targetApi="31" >
         <meta-data
@@ -12,7 +12,7 @@
             android:value="true" />
         <meta-data
             android:name="xposeddescription"
-            android:value="Simple example" />
+            android:value="My personal hooks" />
         <meta-data
             android:name="xposedminversion"
             android:value="53" />

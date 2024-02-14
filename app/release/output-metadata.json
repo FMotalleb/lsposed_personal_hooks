@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "monster.moti.lsposed.example",
+  "applicationId": "monster.moti.lsposed",
   "variantName": "release",
   "elements": [
     {

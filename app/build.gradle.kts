@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "monster.moti.lsposed.example"
+    namespace = "monster.moti.lsposed"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "monster.moti.lsposed.example"
+        applicationId = "monster.moti.lsposed"
         minSdk = 33
         targetSdk = 33
         versionCode = 1
