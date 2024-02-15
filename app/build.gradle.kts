@@ -1,3 +1,5 @@
+import com.android.tools.build.bundletool.commands.BuildApksModule.ApkSigningConfig
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -28,6 +30,18 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
+    signingConfigs {
+        if(System.getenv("KEY_FILE_PATH") != null) {
+            create("release") {
+                storeFile = file(System.getenv("KEY_FILE_PATH"))
+                storePassword = System.getenv("KEY_FILE_PASSWORD")
+                keyAlias = System.getenv("KEY_ALIAS")
+                keyPassword = System.getenv("KEY_PASSWORD")
+            }
+        }
+    }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -41,4 +55,8 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     compileOnly("de.robv.android.xposed:api:82")
     compileOnly(fileTree("lib"))
+}
+
+tasks.register("appVersionName") {
+    println(android.defaultConfig.versionName)
 }
