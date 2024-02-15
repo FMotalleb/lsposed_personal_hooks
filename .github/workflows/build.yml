@@ -43,7 +43,7 @@ jobs:
         ./gradlew assembleRelease
     - name: Retrieve Version
       run: |
-        echo "{VERSION_NAME}=$(./gradlew -q appVersionName)" >> $GITHUB_OUTPUT
+        echo "VERSION_NAME=$(./gradlew -q appVersionName)" >> $GITHUB_OUTPUT
       id: android_version
 
     - name: Get version
