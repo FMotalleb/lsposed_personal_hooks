@@ -1,3 +1,5 @@
+import kotlin.io.path.Path
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -18,9 +20,9 @@ android {
     }
 
     signingConfigs {
-        if(System.getenv("KEY_FILE_PATH") != null) {
+        if(System.getenv("KEY_ALIAS") != null) {
             create("release") {
-                storeFile = file(System.getenv("KEY_FILE_PATH"))
+                storeFile = file(Path(rootDir.absolutePath).resolve("key.jks"))
                 storePassword = System.getenv("KEY_FILE_PASSWORD")
                 keyAlias = System.getenv("KEY_ALIAS")
                 keyPassword = System.getenv("KEY_PASSWORD")
@@ -54,7 +56,7 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.10.1")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     compileOnly("de.robv.android.xposed:api:82")
     compileOnly(fileTree("lib"))
