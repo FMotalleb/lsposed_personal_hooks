@@ -17,9 +17,10 @@ fun bluRootCheckKiller(lpparam: LoadPackageParam){
         object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun beforeHookedMethod(param: MethodHookParam) {
-                Log.d("BluRootCheck","accessed");
+                Log.d("BluRootCheck","bypassed");
                 param.result=false
             }
         }
     )
+    Log.d("BluRootCheck", "Hook Initialized")
 }
