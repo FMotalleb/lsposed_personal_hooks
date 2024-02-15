@@ -29,9 +29,9 @@ jobs:
       
     - name: Sign and Build Release Bundle
       env:
-        KEY_FILE_PASSWORD: ${{ secrets.KEY_FILE_PASSWORD }}
-        KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-        KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        KEY_FILE_PASSWORD: ls-personal
+        KEY_ALIAS: key0
+        KEY_PASSWORD: ls-personal
       run:
         ./gradlew assembleRelease
     - name: Retrieve Version
