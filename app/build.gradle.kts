@@ -42,3 +42,7 @@ dependencies {
     compileOnly("de.robv.android.xposed:api:82")
     compileOnly(fileTree("lib"))
 }
+
+tasks.register("appVersionName") {
+    println(android.defaultConfig.versionName)
+}
