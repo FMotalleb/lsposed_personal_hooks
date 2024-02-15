@@ -17,21 +17,29 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        if(System.getenv("KEY_FILE_PATH") != null) {
+            create("release") {
+                storeFile = file(System.getenv("KEY_FILE_PATH"))
+                storePassword = System.getenv("KEY_FILE_PASSWORD")
+                keyAlias = System.getenv("KEY_ALIAS")
+                keyPassword = System.getenv("KEY_PASSWORD")
+            }
+        } else {
+            create("release") {
+
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = android.signingConfigs.getByName("release")
         }
     }
 
-    signingConfigs {
-        create("release") {
-            storeFile = file("/tmp/key.jks")
-            storePassword = System.getenv("KEY_FILE_PASSWORD")
-            keyAlias = System.getenv("KEY_ALIAS")
-            keyPassword = System.getenv("KEY_PASSWORD")
-        }
-    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
