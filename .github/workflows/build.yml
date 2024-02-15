@@ -1,0 +1,63 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+    
+permissions:
+  contents: write
+  
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Load KeyFile into the machine
+      env:
+        KEY_FILE_B64: ${{ secrets.KEY_FILE_B64 }}
+      run: |
+        echo $KEY_FILE_B64 > keystore_base64.txt
+        base64 -d keystore_base64.txt > /tmp/key.jks
+    - name: Sign and Build Release Bundle
+      env:
+        KEY_FILE_PATH: "/tmp/key.jks"
+        KEY_FILE_PASSWORD: ${{ secrets.KEY_FILE_PASSWORD }}
+        KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+        KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+      run:
+        ./gradlew assembleRelease
+    - name: Retrieve Version
+      run: |
+        echo "{VERSION_NAME}=$(./gradlew -q appVersionName)" >> $GITHUB_OUTPUT
+      id: android_version
+
+    - name: Get version
+      run: |
+        echo "version_name=${{steps.android_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
+
+
+    - name: Create Release on Github
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{env.version_name}}
+        name: Release - ${{env.version_name}}
+        generate_release_notes: true
+        prerelease: true
+        files: app/build/outputs/apk/release/*.apk
