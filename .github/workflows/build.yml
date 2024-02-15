@@ -29,14 +29,13 @@ jobs:
 
     - name: Load KeyFile into the machine
       env:
-        KEY_FILE_PATH: ${{ secrets.KEY_FILE_PATH }}
         KEY_FILE_B64: ${{ secrets.KEY_FILE_B64 }}
       run: |
         echo $KEY_FILE_B64 > keystore_base64.txt
-        base64 -d keystore_base64.txt > $KEY_FILE_PATH
+        base64 -d keystore_base64.txt > /tmp/key.jks
     - name: Sign and Build Release Bundle
       env:
-        KEY_FILE_PATH: ${{ secrets.KEY_FILE_PATH }}
+        KEY_FILE_PATH: "/tmp/key.jks"
         KEY_FILE_PASSWORD: ${{ secrets.KEY_FILE_PASSWORD }}
         KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
         KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
