@@ -25,13 +25,11 @@ android {
     }
 
     signingConfigs {
-        if(System.getenv("KEY_FILE_PATH") != null) {
-            create("release") {
-                storeFile = file(System.getenv("KEY_FILE_PATH"))
-                storePassword = System.getenv("KEY_FILE_PASSWORD")
-                keyAlias = System.getenv("KEY_ALIAS")
-                keyPassword = System.getenv("KEY_PASSWORD")
-            }
+        create("release") {
+            storeFile = file(System.getenv("KEY_FILE_PATH"))
+            storePassword = System.getenv("KEY_FILE_PASSWORD")
+            keyAlias = System.getenv("KEY_ALIAS")
+            keyPassword = System.getenv("KEY_PASSWORD")
         }
     }
 
