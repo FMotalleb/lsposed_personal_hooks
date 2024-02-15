@@ -6,7 +6,7 @@ import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers.getObjectField
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
 
-public fun telegramCallKiller(lpparam: LoadPackageParam){
+fun telegramCallKiller(lpparam: LoadPackageParam){
     if (!lpparam.packageName.equals("org.telegram.messenger.web")) {
         return
     }
