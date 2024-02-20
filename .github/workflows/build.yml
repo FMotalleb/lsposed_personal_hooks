@@ -2,7 +2,6 @@ name: Build
 
 on:
   release: 
-    
   workflow_dispatch:
     
 permissions:
@@ -41,4 +40,5 @@ jobs:
         asset_name: app-release.apk
         tag: ${{ github.ref }}
         overwrite: true
-        make_latest: true
+        release_name: Release ${{ github.ref }}
+        promote: true
