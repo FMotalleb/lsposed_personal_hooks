@@ -3,6 +3,7 @@ package monster.moti.lsposed
 import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
 import monster.moti.lsposed.blu.bluRootCheckKiller
+import monster.moti.lsposed.resalat.resalatRootKiller
 import monster.moti.lsposed.telegram.telegramCallKiller
 
 class Hooker: IXposedHookLoadPackage {
@@ -10,5 +11,6 @@ class Hooker: IXposedHookLoadPackage {
     override fun handleLoadPackage(lpparam: LoadPackageParam) {
         telegramCallKiller(lpparam);
         bluRootCheckKiller(lpparam);
+        resalatRootKiller(lpparam);
     }
 }
