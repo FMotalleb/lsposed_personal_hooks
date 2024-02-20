@@ -1,10 +1,8 @@
 name: Build
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  release: 
+    
   workflow_dispatch:
     
 permissions:
@@ -34,18 +32,13 @@ jobs:
         KEY_PASSWORD: ls-personal
       run:
         ./gradlew assembleRelease
-    - name: Retrieve Version
-      run: |
-        echo "version_name=$(./gradlew -q appVersionName)" >> $GITHUB_ENV
-      id: android_version
 
-    - name: Create Release on Github
-      uses: softprops/action-gh-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload binaries to release
+      uses: svenstaro/upload-release-action@v2
       with:
-        tag_name: v${{env.version_name}}
-        name: Release - ${{env.version_name}}
-        generate_release_notes: true
-        prerelease: true
-        files: app/build/outputs/apk/release/*.apk
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: app/build/outputs/apk/release/app-release.apk
+        asset_name: app-release.apk
+        tag: ${{ github.ref }}
+        overwrite: true
+        make_latest: true
